@@ -5,7 +5,7 @@ import ConfigParser
 import sys
 from argparse import ArgumentParser
 from utils.georeq import GeoLocate
-from utils.domaindatareq import domain_data
+# from utils.domaindatareq import domain_data
 from utils.nmapreq import nmap_analisis
 from utils.censys import CensysSubdomains
 from utils.shodanreq import ShodanClass

@@ -91,7 +91,7 @@ ENV/
 .spyderproject
 .spyproject
 
-# Rope project settings
+# Rope project settings#
 .ropeproject
 
 # mkdocs documentation
@@ -99,3 +99,7 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# Special database
+*.mmdb
+*.ipdb

@@ -11,6 +11,7 @@ from utils.censys import CensysSubdomains
 from utils.shodanreq import ShodanClass
 from core.cloudflarereq import clouflare_test
 from core.honeypot import honeypot_test
+from core.createproject import dolinux
 
 
 if __name__ == '__main__':
@@ -33,6 +34,7 @@ if __name__ == '__main__':
     args = argp.parse_args()
 
     if args.domin:
+        pathproject = dolinux(args.domin)
         test, realip = clouflare_test(config.get('CLOUDFLARE', 'CLOUDFLARE_PATH_RG'),
                                       config.get('CLOUDFLARE', 'CLOUDFLARE_PATH_IP'), args.domin)
 

@@ -7,7 +7,6 @@ struc = ['/project', '/pdf_downloads', '/photo_downloads']
 
 
 def dolinux(nameproject):
-
     path = os.getcwd()
     nameproject = '/' + nameproject
     if not os.path.exists(path + struc[0]):
@@ -23,5 +22,8 @@ def dolinux(nameproject):
             os.mkdir(path + s)
         else:
             pass
+    return path
 
-dolinux('www.blanes.cat')
+
+def dowindows(nameproject):
+    pass

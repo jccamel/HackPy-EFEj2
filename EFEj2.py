@@ -42,15 +42,16 @@ if __name__ == '__main__':
 
     if args.domin:
         pathproject = dolinux(args.domin) # Se crea una carpeta de proyecto con el mismo nombre del dominio a analizar.
-        
+        # Se hace un test con CLAUDFLARE para determinar si el dominio usa éste servicio, si es asi se intenta 
+        # extraer la IP real del dominio a investisgar.
         test, realip = clouflare_test(config.get('CLOUDFLARE', 'CLOUDFLARE_PATH_RG'),
                                       config.get('CLOUDFLARE', 'CLOUDFLARE_PATH_IP'), args.domin)
-
         if not test:
             try:
+                # Con SHODAN se analiza la probabilidad de que el dominio utilize un honeypot para protegerse.
                 percent = honeypot_test(realip, config.get('SHODAN', 'SHODAN_API_KEY'))
             except:
-                print "No data HoneyPoy <<<<<<"
+                print "No HoneyPoy data <<<<<<"
                 pass
 
             print '[*]-- %s (%s)\n' % (realip, args.domin)

@@ -4,6 +4,10 @@
 import whois
 from core.myexception import MyException
 
+"""
+MODULO WHOIS
+Éste módulo se encarga del Whois al dminio investigado y su correspondiente parseo
+"""
 
 def domain_data(domain):
     """

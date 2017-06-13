@@ -5,9 +5,14 @@ import geoip2.webservice
 import geoip2.database
 from core.myexception import MyException
 
-
-class GeoLocate(object):
     """
+    MODULO GEOLOCALIZACIÓN
+    Éste módulo geolocaliza el dominio dado. Dispone de tres opciones, excluyentes entre ellas.
+    Si se dispone de una cuenta de pago, la API se puede utilizar con las opciones:
+    Insights - City - Country
+    Si por el contrario se quiere utilizar la consulta por bases de datos que el mismo MAXMIND distribuye:
+    db
+    Para la consulta por base de datos éste módulo sólo utiliza la base de datos -city-
     GeoIP2 Precision Services
     >Insights< - Insights service provides our most accurate information about the location of an IP address,
         pinpointing it to the zip or postal code level. It includes confidence factors for geolocation data,
@@ -23,6 +28,7 @@ class GeoLocate(object):
     https://dev.maxmind.com/geoip/geoip2/web-services/#IP_Geolocation_Usage
     """
 
+class GeoLocate(object):
     def __init__(self, ip, select, userid, userkey, datapath):
         self.ip = ip
         self.sel = select

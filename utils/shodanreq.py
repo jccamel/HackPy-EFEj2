@@ -3,6 +3,13 @@
 
 import shodan
 
+"""
+MODULO SHODAN
+Éste módulo mediante la API de Shodan muestra si el dominio dado tiene alguna vulnerabilidad.
+https://shodan.readthedocs.io/en/latest/
+
+"""
+
 
 class ShodanClass(object):
 
@@ -19,6 +26,7 @@ class ShodanClass(object):
             pass
 
         def svulns(self):
+            # Función que extrae de la consulta mediante API al dominio la clave -vulns-
             if self.shconn:
                 try:
                     if len(self.conn.host(self.ip)['vulns']) > 0:

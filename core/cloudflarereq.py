@@ -5,6 +5,10 @@ import socket
 import mmap
 from ipaddress import IPv4Address, IPv4Network
 
+"""
+MODULO CLOUDFLARE
+
+"""
 
 def clouflare_test(path_range, path_ipout, domaintest):
     response_test = False

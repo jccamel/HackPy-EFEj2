@@ -2,13 +2,18 @@
 # -*- encoding: utf-8 -*-
 
 import socket
-
 import nmap
-
 from core.httpreq import HttpReq
 
+"""
+MODULO NMAP
+Éste modulo se encarga del escaneo de puertos por Nmap, a la par que si encuentra puertos 22 abiertos, 
+realizar una conexión y trata de obtener el banner del servidor para determinar si realmente se trata de un servidor SSH.
+La parte del código de Nmap se ha reutilizado de Adastra.
+"""
 
 def grab_banner(ip_address, port):
+    # Banner grabbing
     banner = "\tNo banner"
     try:
         s = socket.socket()
@@ -84,10 +89,14 @@ def nmap_analisis(domain, target, ports):
             print "\t(%s) %s - State: %s - Version: %s" % (
                 str(openPort.name), str(openPort.port), openPort.state, openPort.version)
             if str(openPort.port) == '22':
+                # Si se trata del puerto 22 se hace un banner grabbing
                 print "\tBanner --------------------- "
                 print grab_banner(host, int(openPort.port))
                 print "\t------------------------------"
             if str(openPort.name) == 'http':
+                # Si se trata de un puerto del tipo http/https se realiza una petición HTTP 
+                # utilizando el método OPTIONS para determinar si efectivamente el objetivo es 
+                # un servidor web y se extraen los métodos HTTP soportados.
                 h = HttpReq(domain, openPort.port)
                 lreq = h.req()
                 if len(lreq) != 0:

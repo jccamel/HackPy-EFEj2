@@ -18,23 +18,31 @@ if __name__ == '__main__':
 
     config = ConfigParser.ConfigParser()
     config.read('core/CONFIG.cfg')
-
+    # Descripción general del script
     argp = ArgumentParser(version='Versión del script: 1.1', description=' \
     Dada una dirección IP o un nombre de dominio, encontrar información \
     relacionada con el propietario de dicho dominio y los registros DNS \
     correspondientes.')
-
+    # Opciones integradas en el script
+    # Opción obligatoria -d dominio que será analizado:
+    # python EFEj2.py -d www.nombredominio.extensiondominio
     argp.add_argument('-d', '--domin', action='store', required=True, help='Dominio a analizar')
-
+    # Opción -g opcional con tres niveles excluyentes entre si de geolocalización. Se explican en el módulo utils/georeq.py
     argp.add_argument('-g', '--geoloc', choices=['insights', 'city', 'country', 'db'], required=False,
                       help='Geolocalización del dominio a analizar')
+    # Oción -nm opcional donde se inicia el analisis del dominio con las erramientas:
+    # Censys (se buscan subdominios del dominio analizado), Shodan (busca vulnerabilidades en el dominio
+    # así como puertos abiertos) y finalmente un escaneo de puertos los puertos encontrados con Nmap.
+    # Dentro de esta opción tambien se realizar una petición HTTP utilizando el método OPTIONS para 
+    # determinar si efectivamente, el objetivo es un servidor web y extraer los métodos HTTP soportados.
     argp.add_argument('-nm', '--scannmap', action='store_true', required=False,
                       help='Escaneo con Nmap y completar informacion con Shodan')
 
     args = argp.parse_args()
 
     if args.domin:
-        pathproject = dolinux(args.domin)
+        pathproject = dolinux(args.domin) # Se crea una carpeta de proyecto con el mismo nombre del dominio a analizar.
+        
         test, realip = clouflare_test(config.get('CLOUDFLARE', 'CLOUDFLARE_PATH_RG'),
                                       config.get('CLOUDFLARE', 'CLOUDFLARE_PATH_IP'), args.domin)
 
